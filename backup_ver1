@@ -1,0 +1,12 @@
+import os
+import time
+source=['G:\\needback1','G:\\needback2']
+target_dir='G:\\backup\\'
+target=target_dir+time.strftime('%Y%m%d%H%M%S')+'.rar'
+print target
+rar_command='rar a %s %s'%(target,' '.join(source))
+print rar_command
+if os.system(rar_command)==0:
+    print 'Successful backup to',target
+else:
+    print 'BackUp Failed!'
