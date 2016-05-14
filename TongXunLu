@@ -84,14 +84,17 @@ def printr(record):
     print'E-mail: ',record.email
     
 filename='tongxunlu.data'
-#txl={'num':record.number}
-#f=file(filename,'w')
-#p.dump(txl,f)
-#f.close()
 
-f=file(filename)
-txl=p.load(f)
-f.close()
+try:
+    f=file(filename)
+    txl=p.load(f)
+    f.close()
+except IOError:
+    f=file(filename,'w')
+    txl={}
+    p.dump(txl,f)
+    f.close()
+
 
 while True:
     print'\nWhat do you want to do?\n\
