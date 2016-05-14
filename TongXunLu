@@ -1,0 +1,128 @@
+import pickle as p
+class record:
+    number=0
+    def __init__(self,name,sex='male',phone_num='0',address='none',
+                 company='none',email='none'):
+        self.name=name
+        self.sex=sex
+        self.phone_num=phone_num
+        self.address=address
+        self.company=company
+        self.email=email
+        record.number+=1
+
+    def set_sex(self,sex):
+        self.sex=sex
+    def set_phone_num(self,phone):
+        self.phone_num=phone
+    def set_address(self,address):
+        self.address=address
+    def set_company(self,company):
+        self.company=company
+    def set_email(self,email):
+        self.email=email
+
+    def get_sex(self):
+        return self.sex
+    def get_phone_num(self):
+        return self.phone_num
+    def get_address(self):
+        return self.address
+    def get_company(self):
+        return self.company
+    def get_email(self):
+        return self.email
+
+def search(name,d):
+    if d.has_key(name):
+        if name=='num':
+            print'\n'
+            print d[name]
+        else:
+            printr(d[name])
+    else:
+        print'%s is not exist'%name
+        return 0
+def new(name,d):
+    temp=record(name)
+    temp.set_sex(raw_input('Enter the sex:'))
+    temp.set_phone_num(raw_input('Enter the telphone number:'))
+    temp.set_address(raw_input('Enter the address:'))
+    temp.set_company(raw_input('Enter the company:'))
+    temp.set_email(raw_input('Enter the E-mail:'))
+    d[name]=temp
+def delete(name,d):
+    if d.has_key(name):
+        d.__delitem__(name)
+    else:
+        print'%s is not exist'%name
+        return 0
+def update(name,d):
+    if d.has_key(name):
+        temp=d[name]
+        d.__delitem__(name)
+        temp.set_sex(raw_input('Enter the new sex:'))
+        temp.set_phone_num(raw_input('Enter the new telphone number:'))
+        temp.set_address(raw_input('Enter the new address:'))
+        temp.set_company(raw_input('Enter the new company:'))
+        temp.set_email(raw_input('Enter the new E-mail:'))
+        d[name]=temp
+    else:
+        print'%s is not exist'%name
+        return 0
+def view(d):
+    print'\n'
+    for each in d.keys():
+        print each
+def printr(record):
+    print'\n'
+    print'name:   ',record.name
+    print'sex:    ',record.sex
+    print'tel-num:',record.phone_num
+    print'address:',record.address
+    print'company:',record.company
+    print'E-mail: ',record.email
+    
+filename='tongxunlu.data'
+#txl={'num':record.number}
+#f=file(filename,'w')
+#p.dump(txl,f)
+#f.close()
+
+f=file(filename)
+txl=p.load(f)
+f.close()
+
+while True:
+    print'\nWhat do you want to do?\n\
+    v:view the Tong Xun Lu\'s all name.\n\
+    n:creat a new record\n\
+    s:search and view the record in the Tong Xun Lu\n\
+    u:update a record\n\
+    d:delete a record\n\
+    sa:save the Tong Xun Lu.\n\
+    q:quit\n'
+    choose=raw_input('Enter your choose:')
+    if choose=='v':
+        view(txl)
+    elif choose=='n':
+        new(raw_input('name for new creat:'),txl)
+    elif choose=='s':
+        search(raw_input('name for search:'),txl)
+    elif choose=='u':
+        update(raw_input('name for update:'),txl)
+    elif choose=='d':
+        delete(raw_input('name for delete:'),txl)
+    elif choose=='sa':
+        f=file(filename,'w')
+        p.dump(txl,f)
+        f.close()
+    elif choose=='q':
+        print'Will quit with no save,do you save after the last change?\n\
+        y:quit without save\n\
+        any key to continue\n'
+        if raw_input('quit or not:')=='y':
+            break
+    else:
+        print'Your choose is illegal character.'
+print'Thank you!Have a good day!Bye!'
